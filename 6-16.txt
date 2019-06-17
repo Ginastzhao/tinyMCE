@@ -1,0 +1,21 @@
+>>>>1.个人中心中修改用户信息后indx的左右边渲染出现------端口问题?
+Uncaught DOMException: Blocked a frame with origin "null" from accessing a cross-origin frame.---------用vscode中live serve打开--安装之后可以打开一个简单的服务器。而且还会自动更新。
+
+
+>>>>>2.分页功能的实现
++++a.找到页码的结构,根据类名知插件名-github查找插件知使用方法(依赖jquery和bootstrap)
+方法:$('#pagination-demo').twbsPagination({
+        totalPages: 35,
+        visiblePages: 7,
+        onPageClick: function (event, page) {
+            $('#page-content').text('page'+page);
+            //event  事件
+            //page   点击的页码
+        }
+        });
+结构:  <ul id="pagination-demo" class="pagination-sm"></ul>
++++b.将分页插件的方法写入到代码中---修改插件方法中选择器的名字(对应代码)--引入插件库(jquery+pagination.js)
++++c.点击页码后发送ajax请求,获取点击的页码的内容--便于方便将筛选文章封装成方法----页码不能写死(传参)--调用该函数(参数为page--点击哪页传哪页)
++++d.修改英文--文档找方法--将options参数写入到函数对象中
++++e.35页码不能写死--查看插件使用方法动态总页码destroy---合并方法--动态总页码中因有回调函数的方法,所以要将此方法填入到筛选的回调函数中--修改回调后的数据--插件坑:destory方法会反复调用上面onpageclick动态页码中的getArticle(page)方法,产生递归(由断点知)--递归出口--声明一个变量用来记录总的页码
++++f.解决bug --上次筛选9页--这次总共3页--导致动态总页码条消失-修改当前页为1
